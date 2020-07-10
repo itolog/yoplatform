@@ -1,0 +1,12 @@
+appId: com.yoplatform.comtron
+productName: yoplatform
+copyright: Copyright © 2020 Itolog
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null
