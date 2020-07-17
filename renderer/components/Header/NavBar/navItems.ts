@@ -15,11 +15,6 @@ const navItems: Items[] = [
     title: 'auth',
     path: '/auth',
   },
-  {
-    id: 3,
-    title: 'party',
-    path: '/party',
-  },
 ];
 
 export default navItems;

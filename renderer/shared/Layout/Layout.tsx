@@ -10,7 +10,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = memo(
   ({ children, title = 'Yo Platforma' }) => {
     return (
-      <div>
+      <>
         <Head>
           <title>{title}</title>
         </Head>
@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = memo(
         <Header />
         {/* Main Content */}
         {children}
-      </div>
+      </>
     );
   },
 );

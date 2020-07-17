@@ -1,15 +1,17 @@
 import React from 'react';
 import Head from 'next/head';
+import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { theme } from '../shared/theme/theme';
 import { AppProps } from 'next/app';
 
+import { useStore } from '../store/configureStore';
 import useStyles from '../shared/styles/rootStyles';
 
-export default function (props: AppProps) {
+export default function ({ Component, pageProps }: AppProps) {
+  const store = useStore(pageProps.initialReduxState);
   useStyles();
-  const { Component, pageProps } = props;
 
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
@@ -19,7 +21,7 @@ export default function (props: AppProps) {
   }, []);
 
   return (
-    <React.Fragment>
+    <Provider store={store}>
       <Head>
         <meta charSet='utf-8' />
         <meta
@@ -32,6 +34,6 @@ export default function (props: AppProps) {
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
-    </React.Fragment>
+    </Provider>
   );
 }

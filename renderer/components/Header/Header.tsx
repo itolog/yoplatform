@@ -9,13 +9,11 @@ const Header: React.FC = memo(() => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position='static'>
-        <Toolbar variant='dense'>
-          <NavBar />
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position='static' className={classes.root}>
+      <Toolbar variant='dense'>
+        <NavBar />
+      </Toolbar>
+    </AppBar>
   );
 });
 export default Header;
