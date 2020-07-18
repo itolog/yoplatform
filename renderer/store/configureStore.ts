@@ -1,30 +1,39 @@
 import { useMemo } from 'react';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
+import logger from 'redux-logger';
 import { ActionType, StateType } from 'typesafe-actions';
 // YOUTUBE FLOW
 import { ActionTypeUnion as YoutubeActionType } from './youtube/actions';
 import { reducer as youtubeReducer } from './youtube/reducer';
 import { epics as youtubeEpics } from './youtube/epics';
 
-let store;
+// YOUTUBE SEARCH MODAL FLOW
+import { ActionTypeUnion as YoutubeSearchModalActionType } from './yt-search-modal/actions';
+import { reducer as youtubeSearchModalReducer } from './yt-search-modal/reducer';
+import { epics as youtubeSearchModalEpic } from './yt-search-modal/epics';
 
-const rootEpic = combineEpics(...youtubeEpics);
+let store;
+const isProd: boolean = process.env.NODE_ENV === 'production';
+
+const rootEpic = combineEpics(...youtubeEpics, ...youtubeSearchModalEpic);
 
 // Reducers
 const reducer = combineReducers({
   youtube: youtubeReducer,
+  ytSearchModal: youtubeSearchModalReducer,
 });
 
-export type RootActions = ActionType<YoutubeActionType>;
+export type RootActions = ActionType<
+  YoutubeActionType | YoutubeSearchModalActionType
+>;
 
 export type AppState = StateType<typeof reducer>;
 
 const initStore = (initialState) => {
   const epicMiddleware = createEpicMiddleware();
-  const middlewares = [epicMiddleware];
+  const middlewares = !isProd ? [epicMiddleware, logger] : [epicMiddleware];
   const reduxMiddleware = applyMiddleware(...middlewares);
-
   const store = createStore(reducer, initialState, reduxMiddleware);
   epicMiddleware.run(rootEpic);
 

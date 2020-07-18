@@ -2,7 +2,7 @@ import { ActionTypes, ActionTypeUnion } from './actions';
 import { YoutubeState } from './types';
 
 const initialState: YoutubeState = {
-  searchResult: [],
+  searchResult: null,
   playlist: null,
   error: null,
   ids: [],
@@ -13,6 +13,19 @@ export function reducer(
   action: ActionTypeUnion,
 ): YoutubeState {
   switch (action.type) {
+    case ActionTypes.FETCH_YOUTUBE_VIDEO_SUCCESS: {
+      return {
+        ...state,
+        searchResult: action.payload,
+      };
+    }
+    case ActionTypes.FETCH_YOUTUBE_VIDEO_FAILURE: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+
     case ActionTypes.ADD_YOUTUBE_VIDEO_SUCCESS: {
       const videos = {
         [action.payload.id]: action.payload,

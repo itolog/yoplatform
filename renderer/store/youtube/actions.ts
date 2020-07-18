@@ -1,8 +1,13 @@
 import { action, ActionType } from 'typesafe-actions';
 
 import { YoutubeVideo } from './types';
+import { YoutubeResponse } from '../../shared/interface/youtube';
 
 export enum ActionTypes {
+  FETCH_YOUTUBE_VIDEO = 'FETCH_YOUTUBE_VIDEO',
+  FETCH_YOUTUBE_VIDEO_SUCCESS = 'FETCH_YOUTUBE_VIDEO_SUCCESS',
+  FETCH_YOUTUBE_VIDEO_FAILURE = 'FETCH_YOUTUBE__FAILURE',
+
   ADD_YOUTUBE_VIDEO = 'ADD_YOUTUBE_VIDEO',
   ADD_YOUTUBE_VIDEO_SUCCESS = 'ADD_YOUTUBE_VIDEO_SUCCESS',
   ADD_YOUTUBE_VIDEO_FAILURE = 'ADD_YOUTUBE_VIDEO_FAILURE',
@@ -13,6 +18,13 @@ export enum ActionTypes {
 }
 
 export const Actions = {
+  fetchYoutubeVideo: (payload: string) =>
+    action(ActionTypes.FETCH_YOUTUBE_VIDEO, payload),
+  fetchYoutubeVideoSuccess: (payload: YoutubeResponse) =>
+    action(ActionTypes.FETCH_YOUTUBE_VIDEO_SUCCESS, payload),
+  fetchYoutubeVideoFailure: (payload: string) =>
+    action(ActionTypes.FETCH_YOUTUBE_VIDEO_FAILURE, payload),
+
   addYoutubeVideo: (payload: string) =>
     action(ActionTypes.ADD_YOUTUBE_VIDEO, payload),
   addYoutubeVideoSuccess: (payload: YoutubeVideo) =>

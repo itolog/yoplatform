@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // MATERIAL UI
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -9,50 +9,30 @@ import Button from '@material-ui/core/Button';
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
-import YoutubeSearch from '../YoutubeSearch/YoutubeSearch';
+import YoutubeSearch from './YoutubeSearch/YoutubeSearch';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      margin: '0.4rem 1rem',
-    },
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '90%',
-      height: '90%',
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-    openModal: { width: '50px', height: '50px' },
-    closeContainer: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      width: '100%',
-      marginBottom: '20px',
-    },
-    close: {
-      width: '50px',
-    },
-  }),
-);
+import useStyles from './styles';
 
-const YoutubeSearchModal = () => {
+// Store
+import { isYtSearchModalOpen } from '../../store/yt-search-modal/selectors';
+import { getYoutubeSearchItems } from '../../store/youtube/selectors';
+import { Actions } from '../../store/yt-search-modal/actions';
+
+import { YoutubeItems } from '../../shared/interface/youtube';
+
+const YoutubeSearchModal = memo(() => {
+  const dispatch = useDispatch();
+  const open = useSelector(isYtSearchModalOpen);
+  const searchItems = useSelector(getYoutubeSearchItems);
+
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    dispatch(Actions.setYtModalOpen());
   };
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch(Actions.setYtModalClose());
   };
 
   return (
@@ -88,11 +68,15 @@ const YoutubeSearchModal = () => {
               </Button>
             </div>
             <YoutubeSearch />
+            {/* SEARCH RESULTS  */}
+            {searchItems.map((item: YoutubeItems) => {
+              return <div key={item.id.videoId}>{item.snippet.title}</div>;
+            })}
           </div>
         </Fade>
       </Modal>
     </div>
   );
-};
+});
 
 export default YoutubeSearchModal;

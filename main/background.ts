@@ -1,6 +1,5 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import serve from 'electron-serve';
-import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 import { createWindow } from './helpers';
 import template from './Menu/Menu';
@@ -15,7 +14,7 @@ if (isProd) {
 
 const mainWindowOptions = {
   width: 1300,
-  height: 800,
+  height: 700,
 };
 
 (async () => {
@@ -35,10 +34,6 @@ const mainWindowOptions = {
     const port = process.argv[2];
     await mainWindow.loadURL(`http://localhost:${port}/home`);
     mainWindow.webContents.openDevTools();
-
-    await installExtension(REDUX_DEVTOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
   }
 })();
 

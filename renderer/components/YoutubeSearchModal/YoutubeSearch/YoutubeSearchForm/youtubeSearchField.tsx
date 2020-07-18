@@ -11,6 +11,7 @@ const YoutubeSearchField: React.FC<Props> = memo(({ className }) => {
     <Field name='videoSearch'>
       {({ field }) => (
         <TextField
+          autoFocus={true}
           className={className}
           label={'Поиск'}
           type='text'

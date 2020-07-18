@@ -3,52 +3,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import YouTube, { Options } from 'react-youtube';
 
 // MATERIAL UI
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import IconButton from '@material-ui/core/IconButton';
 
 // Store
-import {
-  getYoutubeVideoIDS,
-  getYoutubeVideoList,
-} from '../../store/youtube/selectors';
+import { getYoutubeVideoIDS } from '../../store/youtube/selectors';
 import { Actions } from '../../store/youtube/actions';
+import { Actions as modalSearchAction } from '../../store/yt-search-modal/actions';
 
-const playerW = 600;
-const playerH = 300;
+import useStyles from './styles';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    playerContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: `${playerH}px`,
-      width: `${playerW}px`,
-      backgroundColor: 'black',
-    },
-    playBtn: {
-      width: '100px',
-      height: '100px',
-    },
-  }),
-);
+import constants from './constants';
 
 const YoutubePlayer = memo(() => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const youtubeList = useSelector(getYoutubeVideoIDS);
-  const youtubeObj = useSelector(getYoutubeVideoList);
 
   const [showPlayer, setShowPlayer] = useState(false);
 
   useEffect(() => {
-    console.log('state', youtubeObj);
-  }, [youtubeObj]);
-
-  useEffect(() => {
-    console.log('list', youtubeList);
     if (youtubeList.length !== 0) {
       setShowPlayer(true);
     } else {
@@ -57,18 +32,18 @@ const YoutubePlayer = memo(() => {
   }, [youtubeList]);
 
   const opts: Options = {
-    height: `${playerH}`,
-    width: `${playerW}`,
+    height: `${constants.playerH}`,
+    width: `${constants.playerW}`,
     playerVars: {
       autoplay: 0,
     },
   };
 
   const handleOnReady = ({ target }) => {
-    console.log(target.playerInfo.videoData.video_id);
     if (youtubeList.length !== 0) {
       target.loadPlaylist(youtubeList);
     }
+    target.pauseVideo();
   };
 
   const handleOnEnd = ({ target }) => {
@@ -79,15 +54,22 @@ const YoutubePlayer = memo(() => {
     }
   };
 
+  const handleModalOpen = () => {
+    dispatch(modalSearchAction.setYtModalOpen());
+  };
+
   return (
     <>
       {showPlayer ? (
-        <YouTube opts={opts} onReady={handleOnReady} onEnd={handleOnEnd} />
+        <div className={classes.playerContainer}>
+          <YouTube opts={opts} onReady={handleOnReady} onEnd={handleOnEnd} />
+        </div>
       ) : (
         <div className={classes.playerContainer}>
           <IconButton
             color='secondary'
             aria-label='play video'
+            onClick={handleModalOpen}
             component='button'>
             <PlayCircleFilledIcon className={classes.playBtn} />
           </IconButton>

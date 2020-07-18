@@ -1,4 +1,4 @@
-import { YoutubeItems } from '../../shared/interface/youtube';
+import { YoutubeResponse } from '../../shared/interface/youtube';
 
 export interface YoutubeVideo {
   id: string;
@@ -9,7 +9,7 @@ export interface YoutubeVideo {
 }
 
 export interface YoutubeState {
-  searchResult: YoutubeItems[] | [];
+  searchResult: YoutubeResponse | null;
   playlist: {
     [id: string]: YoutubeVideo;
   } | null;
