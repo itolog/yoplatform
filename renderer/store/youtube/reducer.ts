@@ -3,7 +3,7 @@ import { YoutubeState } from './types';
 
 const initialState: YoutubeState = {
   searchResult: null,
-  playlist: null,
+  playlist: [],
   error: null,
   ids: [],
 };
@@ -27,15 +27,11 @@ export function reducer(
     }
 
     case ActionTypes.ADD_YOUTUBE_VIDEO_SUCCESS: {
-      const videos = {
-        [action.payload.id]: action.payload,
-      };
-
       const ids = [...state.ids, action.payload.id];
 
       return {
         ...state,
-        playlist: { ...state.playlist, ...videos },
+        playlist: [...state.playlist, action.payload],
         ids,
       };
     }
@@ -46,12 +42,14 @@ export function reducer(
       };
     }
     case ActionTypes.REMOVE_YOUTUBE_SUCCESS: {
-      const newVideosState = { ...state.playlist };
-      delete newVideosState[action.payload];
-      const ids = Object.keys(newVideosState);
+      const playlist = state.playlist.filter(
+        (item) => item.id != action.payload,
+      );
+      const ids = playlist.map((item) => item.id);
+
       return {
         ...state,
-        playlist: newVideosState,
+        playlist,
         ids,
       };
     }

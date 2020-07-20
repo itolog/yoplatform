@@ -6,6 +6,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { Actions, ActionTypes } from './actions';
 import { youtubeService } from '../../shared/services/youtube.service';
 import { YoutubeResponse } from '../../shared/interface/youtube';
+import { YoutubeVideo } from './types';
 
 const fetchYoutubeEpic: Epic = (action$) =>
   action$.pipe(
@@ -22,13 +23,24 @@ const fetchYoutubeEpic: Epic = (action$) =>
     }),
   );
 
-const removeMovieEpic: Epic = (action$) =>
+const addYtVideoEpic: Epic = (action$) =>
+  action$.pipe(
+    ofType(ActionTypes.ADD_YOUTUBE_VIDEO),
+    switchMap(({ payload }: { payload: YoutubeVideo }) => {
+      return of(Actions.addYoutubeVideoSuccess(payload));
+    }),
+    catchError((error) => of(Actions.addYoutubeVideoFailure(error.messages))),
+  );
+
+const removeYtVideoEpic: Epic = (action$) =>
   action$.pipe(
     ofType(ActionTypes.REMOVE_YOUTUBE_VIDEO),
     switchMap(({ payload }) => {
       return of(Actions.removeYoutubeVideoSuccess(payload));
     }),
-    catchError((error) => of(Actions.removeYoutubeVideoFailure(error))),
+    catchError((error) =>
+      of(Actions.removeYoutubeVideoFailure(error.messages)),
+    ),
   );
 
-export const epics = [fetchYoutubeEpic, removeMovieEpic];
+export const epics = [fetchYoutubeEpic, addYtVideoEpic, removeYtVideoEpic];

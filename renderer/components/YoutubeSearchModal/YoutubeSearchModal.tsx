@@ -10,6 +10,7 @@ import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import YoutubeSearch from './YoutubeSearch/YoutubeSearch';
+import YoutubeCardList from '../YoutubeCardList/YoutubeCardList';
 
 import useStyles from './styles';
 
@@ -17,8 +18,6 @@ import useStyles from './styles';
 import { isYtSearchModalOpen } from '../../store/yt-search-modal/selectors';
 import { getYoutubeSearchItems } from '../../store/youtube/selectors';
 import { Actions } from '../../store/yt-search-modal/actions';
-
-import { YoutubeItems } from '../../shared/interface/youtube';
 
 const YoutubeSearchModal = memo(() => {
   const dispatch = useDispatch();
@@ -69,9 +68,7 @@ const YoutubeSearchModal = memo(() => {
             </div>
             <YoutubeSearch />
             {/* SEARCH RESULTS  */}
-            {searchItems.map((item: YoutubeItems) => {
-              return <div key={item.id.videoId}>{item.snippet.title}</div>;
-            })}
+            <YoutubeCardList items={searchItems} />
           </div>
         </Fade>
       </Modal>

@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      overflow: 'auto',
+    },
+    youtubeItemsContainer: {
+      display: 'flex',
+      flexFlow: 'column',
+      alignItems: 'center',
     },
     openModal: { width: '50px', height: '50px' },
     closeContainer: {
@@ -28,6 +34,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     close: {
       width: '50px',
+    },
+
+    gridList: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      '&::-webkit-scrollbar': {
+        width: '6px',
+        backgroundColor: 'rgba(85, 108, 214, 0.04)',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(25, 133, 123, 0.5)',
+      },
+      '&::-webkit-scrollbar-track': {
+        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
+        backgroundColor: '#F5F5F5',
+      },
     },
   }),
 );

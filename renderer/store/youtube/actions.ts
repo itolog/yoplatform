@@ -25,7 +25,7 @@ export const Actions = {
   fetchYoutubeVideoFailure: (payload: string) =>
     action(ActionTypes.FETCH_YOUTUBE_VIDEO_FAILURE, payload),
 
-  addYoutubeVideo: (payload: string) =>
+  addYoutubeVideo: (payload: YoutubeVideo) =>
     action(ActionTypes.ADD_YOUTUBE_VIDEO, payload),
   addYoutubeVideoSuccess: (payload: YoutubeVideo) =>
     action(ActionTypes.ADD_YOUTUBE_VIDEO_SUCCESS, payload),

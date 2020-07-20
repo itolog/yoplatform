@@ -10,9 +10,7 @@ export interface YoutubeVideo {
 
 export interface YoutubeState {
   searchResult: YoutubeResponse | null;
-  playlist: {
-    [id: string]: YoutubeVideo;
-  } | null;
+  playlist: YoutubeVideo[] | [];
   error: string | null;
   ids: string[] | [];
 }

@@ -8,10 +8,10 @@ export const getYoutubeSearchItems = createSelector(
   (state) => state?.searchResult?.items ?? [],
 );
 
-// export const getYoutubeVideoList = createSelector(
-//   YoutubeState,
-//   (state) => state.videos,
-// );
+export const getYoutubePlayList = createSelector(
+  YoutubeState,
+  (state) => state.playlist,
+);
 
 export const getYoutubeVideoIDS = createSelector(
   YoutubeState,
