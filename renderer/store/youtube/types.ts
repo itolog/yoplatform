@@ -1,12 +1,4 @@
-import { YoutubeResponse } from '../../shared/interface/youtube';
-
-export interface YoutubeVideo {
-  id: string;
-  snippet: {
-    title: string;
-    thumbnails: string;
-  };
-}
+import { YoutubeResponse, YoutubeVideo } from '../../shared/interface/youtube';
 
 export interface YoutubeState {
   searchResult: YoutubeResponse | null;

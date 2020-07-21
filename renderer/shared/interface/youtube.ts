@@ -1,4 +1,4 @@
-export interface YoutubeItems {
+export interface YoutubeResponseItems {
   kind: string;
   etag: string;
   id: {
@@ -35,9 +35,19 @@ export interface YoutubeItems {
 
 export interface YoutubeResponse {
   nextPageToken: string;
-  items: YoutubeItems[];
+  items: YoutubeResponseItems[];
   pageInfo: {
     resultsPerPage: number;
     totalResults: number;
   };
 }
+
+export interface YoutubeVideo {
+  id: string;
+  snippet: {
+    title: string;
+    thumbnails: string;
+  };
+}
+
+export type ActionButtonType = 'add' | 'remove';

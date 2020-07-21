@@ -5,6 +5,7 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Layout from '../shared/Layout/Layout';
 import YoutubeSearchModal from '../components/YoutubeSearchModal/YoutubeSearchModal';
 import YoutubePlayer from '../components/YoutubePlayer/YoutubePlayer';
+import YoutubePlaylist from '../components/YoutubePlaylist/YoutubePlaylist';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +33,8 @@ const Home = memo(() => {
         <div className={classes.playerContainer}>
           <YoutubeSearchModal />
           <YoutubePlayer />
+
+          <YoutubePlaylist />
         </div>
       </div>
     </Layout>

@@ -41,14 +41,14 @@ const YoutubePlayer = memo(() => {
 
   const handleOnReady = ({ target }) => {
     if (youtubeList.length !== 0) {
-      target.loadPlaylist(youtubeList);
+      target.cuePlaylist(youtubeList);
     }
-    target.pauseVideo();
   };
 
   const handleOnEnd = ({ target }) => {
-    dispatch(Actions.removeYoutubeVideo(target.playerInfo.videoData.video_id));
     if (youtubeList.length !== 0) {
+      // remove by 0 index from playlist.(Now playing)
+      dispatch(Actions.removeYoutubeVideo(0));
       target.loadPlaylist(youtubeList);
       target.nextVideo();
     }

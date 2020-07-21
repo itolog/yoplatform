@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import constants from '../../../../shared/theme/constants';
 
 const useStyles = makeStyles(() =>
@@ -8,7 +8,7 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: '10px',
+      marginBottom: '5%',
     },
     textInput: {
       width: '80%',

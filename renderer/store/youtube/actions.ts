@@ -1,7 +1,6 @@
 import { action, ActionType } from 'typesafe-actions';
 
-import { YoutubeVideo } from './types';
-import { YoutubeResponse } from '../../shared/interface/youtube';
+import { YoutubeResponse, YoutubeVideo } from '../../shared/interface/youtube';
 
 export enum ActionTypes {
   FETCH_YOUTUBE_VIDEO = 'FETCH_YOUTUBE_VIDEO',
@@ -32,9 +31,9 @@ export const Actions = {
   addYoutubeVideoFailure: (payload: string) =>
     action(ActionTypes.ADD_YOUTUBE_VIDEO_FAILURE, payload),
 
-  removeYoutubeVideo: (payload: string) =>
+  removeYoutubeVideo: (payload?: number) =>
     action(ActionTypes.REMOVE_YOUTUBE_VIDEO, payload),
-  removeYoutubeVideoSuccess: (payload: string) =>
+  removeYoutubeVideoSuccess: (payload?: number) =>
     action(ActionTypes.REMOVE_YOUTUBE_SUCCESS, payload),
   removeYoutubeVideoFailure: (payload: string) =>
     action(ActionTypes.REMOVE_YOUTUBE_FAILURE, payload),

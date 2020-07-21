@@ -11,6 +11,7 @@ const useStyles = makeStyles(() =>
       height: `${constants.playerH}px`,
       width: `${constants.playerW}px`,
       backgroundColor: 'black',
+      marginBottom: '5%',
     },
     playBtn: {
       width: '100px',

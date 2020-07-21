@@ -43,7 +43,7 @@ export function reducer(
     }
     case ActionTypes.REMOVE_YOUTUBE_SUCCESS: {
       const playlist = state.playlist.filter(
-        (item) => item.id != action.payload,
+        (item, index) => index !== action.payload,
       );
       const ids = playlist.map((item) => item.id);
 
