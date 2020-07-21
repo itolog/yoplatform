@@ -6,6 +6,7 @@ import Layout from '../shared/Layout/Layout';
 import YoutubeSearchModal from '../components/YoutubeSearchModal/YoutubeSearchModal';
 import YoutubePlayer from '../components/YoutubePlayer/YoutubePlayer';
 import YoutubePlaylist from '../components/YoutubePlaylist/YoutubePlaylist';
+import Chat from '../components/Chat/Chat';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,6 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       paddingTop: theme.spacing(4),
       // background: `linear-gradient(to right top, #051937, #2a2962, #613287, #a42fa0, #eb12a9)`,
+    },
+    main: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      marginBottom: '50px',
     },
     playerContainer: {
       display: 'flex',
@@ -33,9 +39,11 @@ const Home = memo(() => {
         <div className={classes.playerContainer}>
           <YoutubeSearchModal />
           <YoutubePlayer />
-
-          <YoutubePlaylist />
         </div>
+        <main className={classes.main}>
+          <YoutubePlaylist />
+          <Chat />
+        </main>
       </div>
     </Layout>
   );
