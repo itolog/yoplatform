@@ -3,7 +3,6 @@ import React, { memo } from 'react';
 import GridList from '@material-ui/core/GridList';
 
 import {
-  ActionButtonType,
   YoutubeResponseItems,
   YoutubeVideo,
 } from '../../shared/interface/youtube';
