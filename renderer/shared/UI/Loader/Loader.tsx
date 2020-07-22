@@ -11,7 +11,6 @@ const useStyles = makeStyles(() =>
       alignContent: 'center',
       height: '100%',
       width: '100%',
-      backgroundColor: 'rgba(41,7,43,0.57)',
     },
   }),
 );

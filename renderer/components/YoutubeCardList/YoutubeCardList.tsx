@@ -2,16 +2,13 @@ import React, { memo } from 'react';
 
 import GridList from '@material-ui/core/GridList';
 
-import {
-  YoutubeResponseItems,
-  YoutubeVideo,
-} from '../../shared/interface/youtube';
+import { YoutubeVideo } from '../../shared/interface/youtube';
 import YoutubeCard from './YoutubeCard/YoutubeCard';
 
 import useStyles from './style';
 
 interface Props {
-  items: YoutubeResponseItems[] | YoutubeVideo[];
+  items: YoutubeVideo[];
   isActionButtonVisible?: boolean;
 }
 
@@ -21,18 +18,15 @@ const YoutubeCardList: React.FC<Props> = memo(
 
     return (
       <GridList className={classes.gridList}>
-        {items.map((item, index) => {
+        {items.map((item: YtItem, index) => {
           return (
             <YoutubeCard
               dataIndex={index}
               isActionButtonVisible={isActionButtonVisible}
-              id={item.id?.videoId || item.id}
-              key={item.id?.videoId || item.id}
+              id={item.id}
+              key={item.id}
               title={item.snippet.title}
-              img={
-                item?.snippet?.thumbnails?.medium?.url ||
-                item.snippet.thumbnails
-              }
+              img={item.snippet.thumbnails}
             />
           );
         })}

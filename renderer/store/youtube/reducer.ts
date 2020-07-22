@@ -4,6 +4,7 @@ import { YoutubeState } from './types';
 const initialState: YoutubeState = {
   searchResult: null,
   playlist: [],
+  isLoading: false,
   error: null,
   ids: [],
 };
@@ -13,16 +14,24 @@ export function reducer(
   action: ActionTypeUnion,
 ): YoutubeState {
   switch (action.type) {
+    case ActionTypes.FETCH_YOUTUBE_VIDEO: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
     case ActionTypes.FETCH_YOUTUBE_VIDEO_SUCCESS: {
       return {
         ...state,
         searchResult: action.payload,
+        isLoading: false,
       };
     }
     case ActionTypes.FETCH_YOUTUBE_VIDEO_FAILURE: {
       return {
         ...state,
         error: action.payload,
+        isLoading: false,
       };
     }
 

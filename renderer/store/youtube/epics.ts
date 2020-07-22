@@ -5,8 +5,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { Actions, ActionTypes } from './actions';
 import { youtubeService } from '../../shared/services/youtube.service';
-import { YoutubeResponse } from '../../shared/interface/youtube';
-import { YoutubeVideo } from './types';
+import { YoutubeResponse, YoutubeVideo } from '../../shared/interface/youtube';
 
 const fetchYoutubeEpic: Epic = (action$) =>
   action$.pipe(

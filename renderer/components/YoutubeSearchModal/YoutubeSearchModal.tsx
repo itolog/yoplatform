@@ -11,18 +11,23 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import YoutubeSearch from './YoutubeSearch/YoutubeSearch';
 import YoutubeCardList from '../YoutubeCardList/YoutubeCardList';
+import Loader from '../../shared/UI/Loader/Loader';
 
 import useStyles from './styles';
 
 // Store
 import { isYtSearchModalOpen } from '../../store/yt-search-modal/selectors';
-import { getYoutubeSearchItems } from '../../store/youtube/selectors';
+import {
+  getYoutubeSearchItems,
+  isLoading,
+} from '../../store/youtube/selectors';
 import { Actions } from '../../store/yt-search-modal/actions';
 
 const YoutubeSearchModal = memo(() => {
   const dispatch = useDispatch();
   const open = useSelector(isYtSearchModalOpen);
   const searchItems = useSelector(getYoutubeSearchItems);
+  const isFetching = useSelector(isLoading);
 
   const classes = useStyles();
 
@@ -68,7 +73,7 @@ const YoutubeSearchModal = memo(() => {
             </div>
             <YoutubeSearch />
             {/* SEARCH RESULTS  */}
-            <YoutubeCardList items={searchItems} />
+            {!isFetching ? <YoutubeCardList items={searchItems} /> : <Loader />}
           </div>
         </Fade>
       </Modal>
