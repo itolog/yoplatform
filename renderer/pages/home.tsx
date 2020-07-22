@@ -11,15 +11,14 @@ import Chat from '../components/Chat/Chat';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: '100%',
       textAlign: 'center',
       paddingTop: theme.spacing(4),
-      // background: `linear-gradient(to right top, #051937, #2a2962, #613287, #a42fa0, #eb12a9)`,
+      background: `linear-gradient(to right top, #051937, #2a2962, #613287, #a42fa0, #eb12a9)`,
     },
     main: {
       display: 'flex',
-      justifyContent: 'space-around',
-      marginBottom: '50px',
+      justifyContent: 'space-between',
+      padding: '2%',
     },
     playerContainer: {
       display: 'flex',
