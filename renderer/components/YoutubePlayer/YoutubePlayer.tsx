@@ -2,9 +2,12 @@ import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import YouTube, { Options } from 'react-youtube';
 
+import ErrorBoundary from '../../shared/components/ErrorBoundary/ErrorBoundary';
+
 // MATERIAL UI
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import IconButton from '@material-ui/core/IconButton';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 // Store
 import { getYoutubeVideoIDS } from '../../store/youtube/selectors';
@@ -35,22 +38,19 @@ const YoutubePlayer = memo(() => {
     height: `${constants.playerH}`,
     width: `${constants.playerW}`,
     playerVars: {
-      autoplay: 0,
+      autoplay: 1,
     },
   };
 
   const handleOnReady = ({ target }) => {
     if (youtubeList.length !== 0) {
-      target.cuePlaylist(youtubeList);
+      target.pauseVideo();
     }
   };
 
-  const handleOnEnd = ({ target }) => {
+  const handleOnEnd = () => {
     if (youtubeList.length !== 0) {
-      // remove by 0 index from playlist.(Now playing)
       dispatch(Actions.removeYoutubeVideo(0));
-      target.loadPlaylist(youtubeList);
-      target.nextVideo();
     }
   };
 
@@ -58,24 +58,38 @@ const YoutubePlayer = memo(() => {
     dispatch(modalSearchAction.setYtModalOpen());
   };
 
+  const handleNextVideo = () => {
+    dispatch(Actions.removeYoutubeVideo(0));
+  };
+
   return (
-    <>
+    <ErrorBoundary>
       {showPlayer ? (
         <div className={classes.playerContainer}>
-          <YouTube opts={opts} onReady={handleOnReady} onEnd={handleOnEnd} />
+          <YouTube
+            opts={opts}
+            videoId={youtubeList[0]}
+            onReady={handleOnReady}
+            onEnd={handleOnEnd}
+          />
+          <IconButton
+            color='secondary'
+            onClick={handleNextVideo}
+            component='button'>
+            <SkipNextIcon className={classes.nextBtn} />
+          </IconButton>
         </div>
       ) : (
         <div className={classes.playerContainer}>
           <IconButton
             color='secondary'
-            aria-label='play video'
             onClick={handleModalOpen}
             component='button'>
             <PlayCircleFilledIcon className={classes.playBtn} />
           </IconButton>
         </div>
       )}
-    </>
+    </ErrorBoundary>
   );
 });
 

@@ -6,9 +6,10 @@ const useStyles = makeStyles(() =>
   createStyles({
     playerContainer: {
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      height: `${constants.playerH}px`,
+      minHeight: `${constants.playerH}px`,
       width: `${constants.playerW}px`,
       backgroundColor: 'black',
       marginBottom: '5%',
@@ -16,6 +17,14 @@ const useStyles = makeStyles(() =>
     playBtn: {
       width: '100px',
       height: '100px',
+    },
+    nextBtn: {
+      width: '50px',
+      height: '50px',
+      transition: '.3s',
+      '&:hover': {
+        backgroundColor: 'rgb(59, 90, 83)',
+      },
     },
   }),
 );

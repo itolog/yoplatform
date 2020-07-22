@@ -18,7 +18,7 @@ const YoutubeCardList: React.FC<Props> = memo(
 
     return (
       <GridList className={classes.gridList}>
-        {items.map((item: YtItem, index) => {
+        {items.map((item: YoutubeVideo, index) => {
           return (
             <YoutubeCard
               dataIndex={index}

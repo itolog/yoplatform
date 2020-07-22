@@ -1,6 +1,6 @@
 const constants = {
-  playerW: 600,
-  playerH: 300,
+  playerW: 700,
+  playerH: 400,
 };
 
 export default constants;
